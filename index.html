@@ -27,28 +27,31 @@
        button { background: #0f0; color: #000; border: none; padding: 12px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
        button:hover { background: #fff; }
        .note { font-size: 0.75rem; color: #444; margin-top: 20px; font-style: italic; }
+       #responseMsg { display: none; color: #fff; margin-top: 20px; font-weight: bold; padding: 10px; border: 1px solid #0f0; }
 </style>
 </head>
 <body>
 <div class="container">
 <h1>SPUT.AI</h1>
-<div class="status">Curation in Progress</div>
+<div class="status">Curation in Progress | 3 Proposals Pending</div>
 <p id="msg">Solve the challenge to prove your precision. Only builders invited.</p>
 <input type="number" id="guess" placeholder="?">
 <button onclick="check()">EXECUTE GUESS</button>
 <div id="proposalSection" style="display:none; margin-top:30px;">
 <p style="color:#fff; font-size: 0.8rem;">"sput.ai is for those who build, not those who hoard."</p>
-<form action="https://formspree.io/f/mqeyeddn" method="POST">
+<form id="offerForm" action="https://formspree.io/f/mqeyeddn" method="POST">
 <input type="text" name="name" placeholder="Name / Project" required>
 <input type="email" name="email" placeholder="E-mail" required>
 <textarea name="message" placeholder="What will you build?" rows="3" required></textarea>
-<button type="submit">SUBMIT PROPOSAL</button>
+<button type="submit" id="submitBtn">SUBMIT PROPOSAL</button>
 </form>
+<div id="responseMsg"></div>
 </div>
 <div class="note">If your vision matches the potential, I will be in touch within 48h.</div>
 </div>
 <script>
        let target = Math.floor(Math.random() * 100) + 1;
+       // Oyun mantığı
        function check() {
            let val = document.getElementById('guess').value;
            let msg = document.getElementById('msg');
@@ -62,6 +65,32 @@
                msg.innerText = val < target ? "Higher ↑" : "Lower ↓";
            }
        }
+       // AJAX Form Gönderimi (Sayfa yenilenmeden)
+       const form = document.getElementById("offerForm");
+       const responseMsg = document.getElementById("responseMsg");
+       const submitBtn = document.getElementById("submitBtn");
+       form.addEventListener("submit", async (e) => {
+           e.preventDefault();
+           submitBtn.innerText = "SENDING...";
+           submitBtn.disabled = true;
+           const formData = new FormData(form);
+           const response = await fetch(form.action, {
+               method: form.method,
+               body: formData,
+               headers: { 'Accept': 'application/json' }
+           });
+           if (response.ok) {
+               form.style.display = "none";
+               responseMsg.style.display = "block";
+               responseMsg.innerHTML = "MESSAGE RECEIVED.<br><br>If your vision matches the potential, I will be in touch within 48h.";
+           } else {
+               responseMsg.style.display = "block";
+               responseMsg.style.color = "red";
+               responseMsg.innerText = "Error. Please try again.";
+               submitBtn.innerText = "SUBMIT PROPOSAL";
+               submitBtn.disabled = false;
+           }
+       });
 </script>
 </body>
 </html>
