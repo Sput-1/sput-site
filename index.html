@@ -3,173 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>sput.ai - AI Node Connect Challenge</title>
+<title>sput.ai - AI Number Challenge</title>
 <style>
-       body { font-family: 'Courier New', monospace; background: #000; color: #0f0; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 100vh; overflow-x: hidden; }
-       .container { text-align: center; border: 2px solid #0f0; padding: 20px; border-radius: 15px; margin-top: 20px; max-width: 90%; width: 400px; box-shadow: 0 0 15px #0f0; }
-       h1 { font-size: 1.8em; margin-bottom: 10px; }
-       p { font-size: 0.9em; margin-bottom: 15px; }
-       #gameArea { position: relative; width: 300px; height: 300px; border: 1px solid #0f0; margin: 20px auto; background: #111; touch-action: none; /* Oyun alanı içinde kaydırmayı engeller */ }
-       .node { position: absolute; width: 20px; height: 20px; background: #008800; border-radius: 50%; cursor: pointer; border: 1px solid #0f0; box-shadow: 0 0 5px #0f0; }
-       .line { position: absolute; background: #0f0; height: 2px; transform-origin: left center; }
-       #message { margin-top: 10px; font-size: 1.1em; color: #fff; }
-       #level, #score { font-size: 1em; margin-bottom: 5px; }
-       #resetButton { background: #005500; color: #fff; border: 1px solid #0f0; padding: 8px 15px; margin-top: 15px; cursor: pointer; font-weight: bold; }
-       .form-section { margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; width: 100%; }
-       input, textarea { width: calc(100% - 20px); padding: 10px; margin-bottom: 10px; background: #111; color: #fff; border: 1px solid #333; box-sizing: border-box; }
-       .form-section button { background: #0f0; color: #000; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; width: 100%; }
-       @media (max-width: 600px) {
-           .container { width: 95%; padding: 15px; }
-           #gameArea { width: 280px; height: 280px; }
-       }
+
+        body { background: #000; color: #0f0; font-family: 'Courier New', monospace; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+
+        .container { text-align: center; border: 2px solid #0f0; padding: 25px; border-radius: 15px; width: 100%; max-width: 350px; box-shadow: 0 0 20px #004400; }
+
+        h1 { margin-top: 0; letter-spacing: 2px; }
+
+        input { background: #111; color: #fff; border: 1px solid #0f0; padding: 12px; width: 80px; text-align: center; font-size: 1.2rem; margin: 10px 0; }
+
+        button { background: #0f0; color: #000; border: none; padding: 12px 25px; cursor: pointer; font-weight: bold; font-size: 1rem; }
+
+        .info { margin: 15px 0; color: #aaa; }
+
+        .form-section { margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; text-align: left; }
+
+        .form-section input, .form-section textarea { width: 100%; padding: 8px; margin-bottom: 10px; background: #111; border: 1px solid #333; color: #fff; box-sizing: border-box; }
 </style>
 </head>
 <body>
 <div class="container">
-<h1>AI NODE CONNECT</h1>
-<p>Yapay zeka ağını tamamlamak için tüm düğümleri bağla!</p>
-<div id="level">Level: 1</div>
-<div id="score">Nodes Connected: 0</div>
-<div id="gameArea"></div>
-<div id="message"></div>
-<button id="resetButton">Yeni Oyun</button>
+<h1>AI CHALLENGE</h1>
+<p id="msg">1-100 arası bir sayı tuttum. Tahmin et!</p>
+<input type="number" id="guess" placeholder="?">
+<br>
+<button onclick="check()">TAHMİN ET</button>
+<p>Deneme Sayısı: <span id="tries">0</span></p>
 <div class="form-section">
-<p>Bu akıllı domaini satın almak için teklif ver:</p>
+<p style="text-align:center;">Domain için teklif gönder:</p>
 <form action="https://formspree.io/f/mqeyeddn" method="POST">
-<input type="email" name="email" placeholder="E-posta Adresiniz" required>
-<textarea name="message" placeholder="Teklifiniz veya Mesajınız" required></textarea>
-<button type="submit">Teklif Gönder</button>
+<input type="email" name="email" placeholder="E-posta" required>
+<textarea name="message" placeholder="Teklifin..." required></textarea>
+<button type="submit" style="width:100%;">GÖNDER</button>
 </form>
 </div>
 </div>
 <script>
-       const gameArea = document.getElementById('gameArea');
-       const levelDisplay = document.getElementById('level');
-       const scoreDisplay = document.getElementById('score');
-       const messageDisplay = document.getElementById('message');
-       const resetButton = document.getElementById('resetButton');
-       let nodes = [];
-       let lines = [];
-       let selectedNode = null;
-       let connections = {};
-       let currentLevel = 1;
-       let connectedNodesCount = 0;
-       let minNodesPerLevel = 4; // Başlangıç düğüm sayısı
-       const nodeSize = 20;
-       function initGame(level) {
-           gameArea.innerHTML = '';
-           nodes = [];
-           lines = [];
-           selectedNode = null;
-           connections = {};
-           connectedNodesCount = 0;
-           levelDisplay.innerText = `Level: ${level}`;
-           scoreDisplay.innerText = `Nodes Connected: 0`;
-           messageDisplay.innerText = '';
-           const numNodes = minNodesPerLevel + (level - 1) * 2; // Her seviyede düğüm sayısını artır
-           for (let i = 0; i < numNodes; i++) {
-               createNode();
-           }
-       }
-       function createNode() {
-           let x, y, overlap;
-           do {
-               overlap = false;
-               x = Math.random() * (gameArea.offsetWidth - nodeSize);
-               y = Math.random() * (gameArea.offsetHeight - nodeSize);
-               for (let node of nodes) {
-                   const dx = x - node.x;
-                   const dy = y - node.y;
-                   if (Math.sqrt(dx * dx + dy * dy) < nodeSize * 2) { // Düğümlerin çakışmasını engelle
-                       overlap = true;
-                       break;
-                   }
-               }
-           } while (overlap);
-           const nodeDiv = document.createElement('div');
-           nodeDiv.className = 'node';
-           nodeDiv.style.left = `${x}px`;
-           nodeDiv.style.top = `${y}px`;
-nodeDiv.id = `node-${nodes.length}`;
-           nodeDiv.x = x + nodeSize / 2; // Merkez X koordinatı
-           nodeDiv.y = y + nodeSize / 2; // Merkez Y koordinatı
-           nodeDiv.index = nodes.length;
-           nodeDiv.addEventListener('pointerdown', (e) => {
-               e.preventDefault(); // Kaydırmayı engelle
-               handleNodeClick(nodeDiv);
-           });
-           gameArea.appendChild(nodeDiv);
-           nodes.push(nodeDiv);
-           connections[nodeDiv.id] = [];
-       }
-       function handleNodeClick(clickedNode) {
-           if (!selectedNode) {
-               selectedNode = clickedNode;
-               selectedNode.style.backgroundColor = '#ff0'; // Seçilen düğümü vurgula
-           } else if (selectedNode === clickedNode) {
-               selectedNode.style.backgroundColor = '#008800'; // Seçimi kaldır
-               selectedNode = null;
-           } else {
-               // İki düğüm arasında bağlantı oluştur
-               createConnection(selectedNode, clickedNode);
-               selectedNode.style.backgroundColor = '#008800'; // Seçimi kaldır
-               selectedNode = null;
-           }
-       }
-       function createConnection(node1, node2) {
-           if (connections[node1.id].includes(node2.id) || connections[node2.id].includes(node1.id)) {
-               messageDisplay.innerText = "Zaten bağlılar!";
-               return;
-           }
-           // Çizgi oluştur
-           const lineDiv = document.createElement('div');
-           lineDiv.className = 'line';
-           const dx = node2.x - node1.x;
-           const dy = node2.y - node1.y;
-           const distance = Math.sqrt(dx * dx + dy * dy);
-           const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-           lineDiv.style.width = `${distance}px`;
-           lineDiv.style.left = `${node1.x}px`;
-           lineDiv.style.top = `${node1.y}px`;
-           lineDiv.style.transform = `rotate(${angle}deg)`;
-           gameArea.appendChild(lineDiv);
-           lines.push(lineDiv);
-           connections[node1.id].push(node2.id);
-           connections[node2.id].push(node1.id);
-           connectedNodesCount++;
-           scoreDisplay.innerText = `Nodes Connected: ${connectedNodesCount}`;
-           messageDisplay.innerText = `Bağlandı: ${node1.index} - ${node2.index}`;
-           // Tüm düğümler bağlandı mı kontrol et
-           if (checkWinCondition()) {
-               messageDisplay.innerText = `LEVEL ${currentLevel} TAMAMLANDI!`;
-               setTimeout(() => {
-                   currentLevel++;
-                   initGame(currentLevel);
-               }, 1500);
-           }
-       }
-       function checkWinCondition() {
-           if (nodes.length <= 1) return true; // Tek düğüm veya hiç düğüm yoksa kazanmış sayılır
-           const visited = new Set();
-           const queue = [nodes[0].id];
-           visited.add(nodes[0].id);
-           let head;
-           while (queue.length > 0) {
-               head = queue.shift();
-               for (const neighborId of connections[head]) {
-                   if (!visited.has(neighborId)) {
-                       visited.add(neighborId);
-                       queue.push(neighborId);
-                   }
-               }
-           }
-           return visited.size === nodes.length; // Tüm düğümler ziyaret edildiyse kazanıldı
-       }
-       resetButton.addEventListener('click', () => {
-           currentLevel = 1;
-           initGame(currentLevel);
-       });
-       initGame(currentLevel); // Oyun başlangıcı
+
+        let target = Math.floor(Math.random() * 100) + 1;
+
+        let tries = 0;
+
+        function check() {
+
+            let val = document.getElementById("guess").value;
+
+            if(!val) return;
+
+            tries++;
+
+            document.getElementById("tries").innerText = tries;
+
+            if(val == target) { 
+
+                document.getElementById("msg").innerText = "Tebrikler! AI'yi " + tries + " denemede yendin!";
+
+                alert("AI'yi " + tries + " denemede yendin! Tekrar oynamak için sayfayı yenile.");
+
+            } else if(val < target) {
+
+                document.getElementById("msg").innerText = "Daha YÜKSEK bir sayı gir.";
+
+            } else {
+
+                document.getElementById("msg").innerText = "Daha DÜŞÜK bir sayı gir.";
+
+            }
+
+        }
 </script>
 </body>
 </html>
+Sput.ai - Premium Domain For Sale
+ 
