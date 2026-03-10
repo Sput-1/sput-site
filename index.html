@@ -3,16 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sput.ai - Premium Domain For Sale</title>
+<style>
+
+        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #f8f9fa; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: #333; }
+
+        .container { background: white; padding: 60px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; max-width: 500px; width: 90%; }
+
+        h1 { font-size: 2.5rem; margin-bottom: 20px; color: #1a1a1a; }
+
+        p { color: #666; margin-bottom: 30px; line-height: 1.6; }
+
+        input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+
+        button { background: #007bff; color: white; border: none; padding: 12px 30px; border-radius: 6px; cursor: pointer; font-size: 1rem; width: 100%; }
+
+        button:hover { background: #0056b3; }
+
+        .footer { margin-top: 30px; font-size: 0.8rem; color: #999; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>sput.ai</h1>
+<p>This premium domain is available for acquisition. Please use the form below to submit your offer or inquiry.</p>
+<form action="https://formspree.io/f/mqeyeddn" method="POST">
+<input type="email" name="email" placeholder="Your Email Address" required>
+<textarea name="message" rows="4" placeholder="Your Offer or Message" required></textarea>
+<button type="submit">Send Offer</button>
+</form>
+<div class="footer">©️ 2026 sput.ai - All rights reserved.</div>
+</div>
+</body>
+</html>
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>sput.ai - Play & Acquire</title>
 <style>
-       body { font-family: 'Courier New', Courier, monospace; background: #1a1a1a; color: #00ff00; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
-       .container { text-align: center; border: 2px solid #00ff00; padding: 20px; border-radius: 10px; background: #000; box-shadow: 0 0 20px #00ff00; max-width: 450px; width: 100%; }
-       canvas { border: 2px solid #555; background-color: #000; display: block; margin: 20px auto; }
-       h1 { margin: 10px 0; letter-spacing: 5px; }
-       .score { font-size: 20px; margin-bottom: 10px; }
-       .form-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid #333; }
-       input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #555; background: #222; color: #fff; box-sizing: border-box; }
-       button { background: #00ff00; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; width: 100%; }
+
+        body { font-family: 'Courier New', Courier, monospace; background: #1a1a1a; color: #00ff00; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
+
+        .container { text-align: center; border: 2px solid #00ff00; padding: 20px; border-radius: 10px; background: #000; box-shadow: 0 0 20px #00ff00; max-width: 450px; width: 100%; }
+
+        canvas { border: 2px solid #555; background-color: #000; display: block; margin: 20px auto; }
+
+        h1 { margin: 10px 0; letter-spacing: 5px; }
+
+        .score { font-size: 20px; margin-bottom: 10px; }
+
+        .form-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid #333; }
+
+        input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #555; background: #222; color: #fff; box-sizing: border-box; }
+
+        button { background: #00ff00; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; width: 100%; }
 </style>
 </head>
 <body>
@@ -23,7 +70,7 @@
 <canvas id="snakeGame" width="300" height="300"></canvas>
 <div class="form-section">
 <p>Submit your offer:</p>
-<form action="https://formspree.io/f/mqeyeddn" method="POST">
+<form action="https://formspree.io/f/XXXXXX" method="POST">
 <input type="email" name="email" placeholder="Your Email" required>
 <textarea name="message" placeholder="Your Offer" required></textarea>
 <button type="submit">Send Offer</button>
@@ -31,39 +78,224 @@
 </div>
 </div>
 <script>
-       // Oyun mantığı
-       const canvas = document.getElementById("snakeGame");
-       const ctx = canvas.getContext("2d");
-       const scoreElement = document.getElementById("currentScore");
-       let score = 0, box = 15, snake = [{x: 9 * box, y: 10 * box}], d;
-       let food = { x: Math.floor(Math.random() * 19 + 1) * box, y: Math.floor(Math.random() * 19 + 1) * box };
-       document.addEventListener("keydown", (e) => {
-           if(e.keyCode == 37 && d != "RIGHT") d = "LEFT";
-           else if(e.keyCode == 38 && d != "DOWN") d = "UP";
-           else if(e.keyCode == 39 && d != "LEFT") d = "RIGHT";
-           else if(e.keyCode == 40 && d != "UP") d = "DOWN";
-       });
-       function draw() {
-           ctx.fillStyle = "black";
-           ctx.fillRect(0, 0, canvas.width, canvas.height);
-           for(let i = 0; i < snake.length; i++) {
-               ctx.fillStyle = (i == 0) ? "#00ff00" : "#008800";
-               ctx.fillRect(snake[i].x, snake[i].y, box, box);
-           }
-           ctx.fillStyle = "red";
-           ctx.fillRect(food.x, food.y, box, box);
-           let snakeX = snake[0].x, snakeY = snake[0].y;
-           if(d == "LEFT") snakeX -= box; if(d == "UP") snakeY -= box;
-           if(d == "RIGHT") snakeX += box; if(d == "DOWN") snakeY += box;
-           if(snakeX == food.x && snakeY == food.y) {
-               score++; scoreElement.innerHTML = score;
-               food = { x: Math.floor(Math.random() * 19 + 1) * box, y: Math.floor(Math.random() * 19 + 1) * box };
-           } else { snake.pop(); }
-           let newHead = { x: snakeX, y: snakeY };
-           if(snakeX < 0 || snakeY < 0 || snakeX >= canvas.width || snakeY >= canvas.height) { clearInterval(game); alert("Game Over! Score: " + score); location.reload(); }
-           snake.unshift(newHead);
-       }
-       let game = setInterval(draw, 100);
+
+        // Oyun mantığı
+
+        const canvas = document.getElementById("snakeGame");
+
+        const ctx = canvas.getContext("2d");
+
+        const scoreElement = document.getElementById("currentScore");
+
+        let score = 0, box = 15, snake = [{x: 9 * box, y: 10 * box}], d;
+
+        let food = { x: Math.floor(Math.random() * 19 + 1) * box, y: Math.floor(Math.random() * 19 + 1) * box };
+
+        document.addEventListener("keydown", (e) => {
+
+            if(e.keyCode == 37 && d != "RIGHT") d = "LEFT";
+
+            else if(e.keyCode == 38 && d != "DOWN") d = "UP";
+
+            else if(e.keyCode == 39 && d != "LEFT") d = "RIGHT";
+
+            else if(e.keyCode == 40 && d != "UP") d = "DOWN";
+
+        });
+
+        function draw() {
+
+            ctx.fillStyle = "black";
+
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for(let i = 0; i < snake.length; i++) {
+
+                ctx.fillStyle = (i == 0) ? "#00ff00" : "#008800";
+
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+
+            }
+
+            ctx.fillStyle = "red";
+
+            ctx.fillRect(food.x, food.y, box, box);
+
+            let snakeX = snake[0].x, snakeY = snake[0].y;
+
+            if(d == "LEFT") snakeX -= box; if(d == "UP") snakeY -= box;
+
+            if(d == "RIGHT") snakeX += box; if(d == "DOWN") snakeY += box;
+
+            if(snakeX == food.x && snakeY == food.y) {
+
+                score++; scoreElement.innerHTML = score;
+
+                food = { x: Math.floor(Math.random() * 19 + 1) * box, y: Math.floor(Math.random() * 19 + 1) * box };
+
+            } else { snake.pop(); }
+
+            let newHead = { x: snakeX, y: snakeY };
+
+            if(snakeX < 0 || snakeY < 0 || snakeX >= canvas.width || snakeY >= canvas.height) { clearInterval(game); alert("Game Over! Score: " + score); location.reload(); }
+
+            snake.unshift(newHead);
+
+        }
+
+        let game = setInterval(draw, 100);
 </script>
 </body>
 </html>
+Sput.ai - Premium Domain For Sale
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>sput.ai - Play & Acquire</title>
+<style>
+
+        /* Sayfanın tamamını sabitleyen CSS */
+
+        html, body {
+
+            overflow: hidden; /* Kaydırmayı tamamen kapatır */
+
+            touch-action: none; /* Mobilde kaydırmayı engeller */
+
+            overscroll-behavior: none; /* Sayfa zıplamasını engeller */
+
+            height: 100%;
+
+            margin: 0;
+
+            background: #1a1a1a;
+
+            color: #00ff00;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+        .container { text-align: center; border: 2px solid #00ff00; padding: 15px; border-radius: 10px; background: #000; max-width: 400px; width: 90%; }
+
+        canvas { border: 2px solid #555; background-color: #000; display: block; margin: 10px auto; width: 250px; height: 250px; }
+
+        .controls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+
+        button { background: #333; color: #00ff00; border: 1px solid #00ff00; padding: 15px; font-size: 1.2rem; cursor: pointer; border-radius: 5px; touch-action: manipulation; }
+
+        .form-section { margin-top: 15px; padding-top: 10px; border-top: 1px solid #333; font-size: 0.8rem; }
+
+        input, textarea { width: 100%; padding: 5px; margin-bottom: 5px; background: #222; border: 1px solid #555; color: #fff; box-sizing: border-box; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>SPUT.AI</h1>
+<div id="score">Score: 0</div>
+<canvas id="game" width="300" height="300"></canvas>
+<div class="controls">
+<div></div><button onclick="setDir('UP')">▲</button><div></div>
+<button onclick="setDir('LEFT')">◀️</button><button onclick="setDir('DOWN')">▼</button><button onclick="setDir('RIGHT')">▶️</button>
+</div>
+<div class="form-section">
+<form action="https://formspree.io/f/XXXXXX" method="POST">
+<input type="email" name="email" placeholder="Your Email" required>
+<textarea name="message" placeholder="Your Offer" required></textarea>
+<button type="submit" style="background:#00ff00; color:#000; padding: 8px;">Send Offer</button>
+</form>
+</div>
+</div>
+<script>
+
+        // Sayfanın klavye ile kaymasını engellemek için eklendi
+
+        window.addEventListener("keydown", function(e) {
+
+            if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+
+                e.preventDefault();
+
+            }
+
+        }, false);
+
+        const canvas = document.getElementById("game");
+
+        const ctx = canvas.getContext("2d");
+
+        let box = 15, score = 0, d;
+
+        let snake = [{x: 9*box, y:10*box}];
+
+        let food = {x: 150, y: 150};
+
+        function setDir(newDir) {
+
+            if(newDir == 'UP' && d != 'DOWN') d = 'UP';
+
+            if(newDir == 'DOWN' && d != 'UP') d = 'DOWN';
+
+            if(newDir == 'LEFT' && d != 'RIGHT') d = 'LEFT';
+
+            if(newDir == 'RIGHT' && d != 'LEFT') d = 'RIGHT';
+
+        }
+
+        document.addEventListener("keydown", e => {
+
+            if(e.keyCode == 37) setDir('LEFT');
+
+            if(e.keyCode == 38) setDir('UP');
+
+            if(e.keyCode == 39) setDir('RIGHT');
+
+            if(e.keyCode == 40) setDir('DOWN');
+
+        });
+
+        function draw() {
+
+            ctx.fillStyle = "black"; ctx.fillRect(0,0,300,300);
+
+            ctx.fillStyle = "red"; ctx.fillRect(food.x, food.y, box, box);
+
+            for(let i=0; i<snake.length; i++) {
+
+                ctx.fillStyle = (i==0) ? "#00ff00" : "#008800";
+
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+
+            }
+
+            let head = {x: snake[0].x, y: snake[0].y};
+
+            if(d=='LEFT') head.x -= box; if(d=='UP') head.y -= box;
+
+            if(d=='RIGHT') head.x += box; if(d=='DOWN') head.y += box;
+
+            if(head.x == food.x && head.y == food.y) {
+
+                score++; document.getElementById('score').innerText = "Score: "+score;
+
+                food = {x: Math.floor(Math.random()*19)*box, y: Math.floor(Math.random()*19)*box};
+
+            } else { snake.pop(); }
+
+            snake.unshift(head);
+
+        }
+
+        setInterval(draw, 150);
+</script>
+</body>
+</html>
+Sput.ai - Premium Domain For Sale
+ 
