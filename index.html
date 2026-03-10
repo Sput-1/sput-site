@@ -5,29 +5,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SPUT.AI</title>
 <style>
-       html, body {
-           margin: 0; padding: 0; height: 100%;
-           background: #000; color: #0f0;
-           font-family: 'Courier New', monospace;
-           display: flex; justify-content: center; align-items: center;
-           overflow: hidden;
-       }
-       .container {
-           text-align: center; border: 1px solid #333;
-           padding: 30px; border-radius: 4px;
-           width: 90%; max-width: 450px;
-           background: rgba(0, 20, 0, 0.2);
-           backdrop-filter: blur(5px);
-       }
-       h1 { margin: 0 0 10px 0; font-size: 2rem; color: #fff; letter-spacing: 5px; }
-       .status { font-size: 0.7rem; color: #555; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; }
-       #msg { margin: 20px 0; font-size: 0.9rem; color: #0f0; }
-       input, textarea { background: #000; color: #0f0; border: 1px solid #333; padding: 12px; width: 100%; margin-bottom: 10px; box-sizing: border-box; }
-       #guess { width: 80px; text-align: center; }
-       button { background: #0f0; color: #000; border: none; padding: 12px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
-       button:hover { background: #fff; }
-       .note { font-size: 0.75rem; color: #444; margin-top: 20px; font-style: italic; }
-       #responseMsg { display: none; color: #fff; margin-top: 20px; font-weight: bold; }
+
+        html, body { 
+
+            margin: 0; padding: 0; height: 100%; 
+
+            background: #000; color: #0f0; 
+
+            font-family: 'Courier New', monospace; 
+
+            display: flex; justify-content: center; align-items: center; 
+
+            overflow: hidden; 
+
+        }
+
+        .container { 
+
+            text-align: center; border: 1px solid #333; 
+
+            padding: 30px; border-radius: 4px; 
+
+            width: 90%; max-width: 450px; 
+
+            background: rgba(0, 20, 0, 0.2); 
+
+            backdrop-filter: blur(5px); 
+
+        }
+
+        h1 { margin: 0 0 10px 0; font-size: 2rem; color: #fff; letter-spacing: 5px; }
+
+        .status { font-size: 0.7rem; color: #555; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; }
+
+        #msg { margin: 20px 0; font-size: 0.9rem; color: #0f0; }
+
+        input, textarea { background: #000; color: #0f0; border: 1px solid #333; padding: 12px; width: 100%; margin-bottom: 10px; box-sizing: border-box; }
+
+        #guess { width: 80px; text-align: center; }
+
+        button { background: #0f0; color: #000; border: none; padding: 12px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
+
+        button:hover { background: #fff; }
+
+        .note { font-size: 0.75rem; color: #444; margin-top: 20px; font-style: italic; }
+
+        #responseMsg { display: none; color: #fff; margin-top: 20px; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -50,141 +73,88 @@
 <div class="note">If your vision matches the potential, I will be in touch within 48h.</div>
 </div>
 <script>
-       let target = Math.floor(Math.random() * 100) + 1;
-       // Oyun Mantığı
-       function check() {
-           let val = document.getElementById('guess').value;
-           let msg = document.getElementById('msg');
-           if(!val) return;
-           if(val == target) {
-               msg.innerHTML = '<span style="color:#fff;">ACCESS GRANTED.</span> The vision field is now open.';
-               document.getElementById('guess').style.display = 'none';
-               document.getElementById('guessBtn').style.display = 'none';
-               document.getElementById('proposalSection').style.display = 'block';
-           } else {
-               msg.innerText = val < target ? "Higher ↑" : "Lower ↓";
-           }
-       }
-       // AJAX Form Gönderimi (Sayfa yenilenmesini engeller)
-       function submitForm() {
-           const form = document.getElementById("offerForm");
-           const btn = document.getElementById("submitBtn");
-           const responseMsg = document.getElementById("responseMsg");
-           btn.innerText = "SENDING...";
-           btn.disabled = true;
-           fetch(form.action, {
-               method: "POST",
-               body: new FormData(form),
-               headers: { 'Accept': 'application/json' }
-           }).then(response => {
-               if (response.ok) {
-                   form.style.display = "none";
-                   responseMsg.style.display = "block";
-                   responseMsg.innerHTML = "MESSAGE RECEIVED.<br><br>If your vision matches the potential, I will be in touch within 48h.";
-               } else {
-                   responseMsg.style.display = "block";
-                   responseMsg.style.color = "red";
-                   responseMsg.innerText = "Error. Please try again.";
-                   btn.innerText = "SUBMIT PROPOSAL";
-                   btn.disabled = false;
-               }
-           });
-       }
-</script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPUT.AI</title>
-<style>
-       html, body {
-           margin: 0; padding: 0; height: 100%;
-           background: #000; color: #0f0;
-           font-family: 'Courier New', monospace;
-           display: flex; justify-content: center; align-items: center;
-           overflow: hidden;
-       }
-       .container {
-           text-align: center; border: 1px solid #333;
-           padding: 30px; border-radius: 4px;
-           width: 90%; max-width: 450px;
-           background: rgba(0, 20, 0, 0.2);
-           backdrop-filter: blur(5px);
-       }
-       h1 { margin: 0 0 10px 0; font-size: 2rem; color: #fff; letter-spacing: 5px; }
-       .status { font-size: 0.7rem; color: #555; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; }
-       #msg { margin: 20px 0; font-size: 0.9rem; color: #0f0; }
-       input, textarea { background: #000; color: #0f0; border: 1px solid #333; padding: 12px; width: 100%; margin-bottom: 10px; box-sizing: border-box; }
-       #guess { width: 80px; text-align: center; }
-       button { background: #0f0; color: #000; border: none; padding: 12px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
-       button:hover { background: #fff; }
-       .note { font-size: 0.75rem; color: #444; margin-top: 20px; font-style: italic; }
-       #responseMsg { display: none; color: #fff; margin-top: 20px; font-weight: bold; padding: 10px; border: 1px solid #0f0; }
-</style>
-</head>
-<body>
-<div class="container">
-<h1>SPUT.AI</h1>
-<div class="status">Curation in Progress | 3 Proposals Pending</div>
-<p id="msg">Solve the challenge to prove your precision. Only builders invited.</p>
-<input type="number" id="guess" placeholder="?">
-<button onclick="check()">EXECUTE GUESS</button>
-<div id="proposalSection" style="display:none; margin-top:30px;">
-<p style="color:#fff; font-size: 0.8rem;">"sput.ai is for those who build, not those who hoard."</p>
-<form id="offerForm" action="https://formspree.io/f/mqeyeddn" method="POST">
-<input type="text" name="name" placeholder="Name / Project" required>
-<input type="email" name="email" placeholder="E-mail" required>
-<textarea name="message" placeholder="What will you build?" rows="3" required></textarea>
-<button type="submit" id="submitBtn">SUBMIT PROPOSAL</button>
-</form>
-<div id="responseMsg"></div>
-</div>
-<div class="note">If your vision matches the potential, I will be in touch within 48h.</div>
-</div>
-<script>
-       let target = Math.floor(Math.random() * 100) + 1;
-       // Oyun mantığı
-       function check() {
-           let val = document.getElementById('guess').value;
-           let msg = document.getElementById('msg');
-           if(!val) return;
-           if(val == target) {
-               msg.innerHTML = '<span style="color:#fff;">ACCESS GRANTED.</span> The vision field is now open.';
-               document.getElementById('guess').style.display = 'none';
-               document.querySelector('button[onclick="check()"]').style.display = 'none';
-               document.getElementById('proposalSection').style.display = 'block';
-           } else {
-               msg.innerText = val < target ? "Higher ↑" : "Lower ↓";
-           }
-       }
-       // AJAX Form Gönderimi (Sayfa yenilenmeden)
-       const form = document.getElementById("offerForm");
-       const responseMsg = document.getElementById("responseMsg");
-       const submitBtn = document.getElementById("submitBtn");
-       form.addEventListener("submit", async (e) => {
-           e.preventDefault();
-           submitBtn.innerText = "SENDING...";
-           submitBtn.disabled = true;
-           const formData = new FormData(form);
-           const response = await fetch(form.action, {
-               method: form.method,
-               body: formData,
-               headers: { 'Accept': 'application/json' }
-           });
-           if (response.ok) {
-               form.style.display = "none";
-               responseMsg.style.display = "block";
-               responseMsg.innerHTML = "MESSAGE RECEIVED.<br><br>If your vision matches the potential, I will be in touch within 48h.";
-           } else {
-               responseMsg.style.display = "block";
-               responseMsg.style.color = "red";
-               responseMsg.innerText = "Error. Please try again.";
-               submitBtn.innerText = "SUBMIT PROPOSAL";
-               submitBtn.disabled = false;
-           }
-       });
+
+        let target = Math.floor(Math.random() * 100) + 1;
+
+        // Oyun Mantığı
+
+        function check() {
+
+            let val = document.getElementById('guess').value;
+
+            let msg = document.getElementById('msg');
+
+            if(!val) return;
+
+            if(val == target) {
+
+                msg.innerHTML = '<span style="color:#fff;">ACCESS GRANTED.</span> The vision field is now open.';
+
+                document.getElementById('guess').style.display = 'none';
+
+                document.getElementById('guessBtn').style.display = 'none';
+
+                document.getElementById('proposalSection').style.display = 'block';
+
+            } else {
+
+                msg.innerText = val < target ? "Higher ↑" : "Lower ↓";
+
+            }
+
+        }
+
+        // AJAX Form Gönderimi (Sayfa yenilenmesini engeller)
+
+        function submitForm() {
+
+            const form = document.getElementById("offerForm");
+
+            const btn = document.getElementById("submitBtn");
+
+            const responseMsg = document.getElementById("responseMsg");
+
+            btn.innerText = "SENDING...";
+
+            btn.disabled = true;
+
+            fetch(form.action, {
+
+                method: "POST",
+
+                body: new FormData(form),
+
+                headers: { 'Accept': 'application/json' }
+
+            }).then(response => {
+
+                if (response.ok) {
+
+                    form.style.display = "none";
+
+                    responseMsg.style.display = "block";
+
+                    responseMsg.innerHTML = "MESSAGE RECEIVED.<br><br>If your vision matches the potential, I will be in touch within 48h.";
+
+                } else {
+
+                    responseMsg.style.display = "block";
+
+                    responseMsg.style.color = "red";
+
+                    responseMsg.innerText = "Error. Please try again.";
+
+                    btn.innerText = "SUBMIT PROPOSAL";
+
+                    btn.disabled = false;
+
+                }
+
+            });
+
+        }
 </script>
 </body>
 </html>
+Sput.ai - Premium Domain For Sale
+ 
