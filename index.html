@@ -5,54 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>sput.ai</title>
 <style>
-       html, body {
-           margin: 0; padding: 0; height: 100%; width: 100%;
-           background: #000; color: #0f0; font-family: 'Courier New', monospace;
-           display: flex; justify-content: center; align-items: center; overflow: hidden;
-       }
-       .container {
-           text-align: center; border: 2px solid #0f0; padding: 20px;
-           border-radius: 12px; width: 90%; max-width: 350px;
-           box-shadow: 0 0 15px #004400;
-       }
-       h1 { margin: 5px 0; font-size: 1.5rem; color: #fff; }
-       #msg { min-height: 40px; margin: 10px 0; font-size: 1rem; }
-       input { background: #111; color: #fff; border: 1px solid #0f0; padding: 10px; width: 70px; text-align: center; font-size: 1.1rem; }
+       html, body { margin: 0; padding: 0; height: 100%; background: #000; color: #0f0; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+       .container { text-align: center; border: 2px solid #0f0; padding: 20px; border-radius: 12px; width: 90%; max-width: 400px; box-shadow: 0 0 20px #004400; }
+       h1 { margin: 5px 0; font-size: 1.8rem; color: #fff; }
+       #msg { margin: 15px 0; font-size: 1rem; color: #fff; }
+       input { background: #111; color: #fff; border: 1px solid #0f0; padding: 10px; width: 80px; text-align: center; font-size: 1.1rem; }
        button { background: #0f0; color: #000; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; }
-       .form-section { margin-top: 20px; border-top: 1px dashed #333; padding-top: 15px; }
-       .form-section input, .form-section textarea { width: 100%; padding: 8px; margin-bottom: 8px; background: #111; border: 1px solid #333; color: #fff; box-sizing: border-box; }
+       .form-section { margin-top: 30px; border-top: 1px solid #0f0; padding-top: 20px; text-align: left; }
+       .form-section p { font-size: 0.8rem; color: #aaa; margin-bottom: 10px; }
+       input[type="text"], input[type="email"], textarea { width: 100%; padding: 8px; margin-bottom: 10px; background: #111; border: 1px solid #333; color: #fff; box-sizing: border-box; }
+       .success { color: #0f0; font-weight: bold; }
 </style>
 </head>
 <body>
 <div class="container">
 <h1>SPUT.AI</h1>
-<p id="msg">I've picked a number (1-100). Guess it.</p>
+<p id="msg">I've picked a number (1-100). Guess it to prove you're ready for this domain.</p>
 <input type="number" id="guess" placeholder="?">
 <button onclick="check()">GUESS!</button>
-<p>Attempts: <span id="tries">0</span></p>
 <div class="form-section">
-<p>Ready to own this? Convince me.</p>
+<p><strong>Are you a serious builder?</strong> Tell me your vision for this domain. I only entertain meaningful proposals.</p>
 <form action="https://formspree.io/f/mqeyeddn" method="POST">
-<input type="email" name="email" placeholder="Your Email" required>
-<textarea name="message" placeholder="Why should this be yours?" rows="2" required></textarea>
-<button type="submit" style="width:100%;">SUBMIT OFFER</button>
+<input type="text" name="name" placeholder="Name / Project" required>
+<input type="email" name="email" placeholder="E-mail" required>
+<textarea name="message" placeholder="What will you build with sput.ai?" rows="3" required></textarea>
+<button type="submit" style="width:100%;">SUBMIT PROPOSAL</button>
 </form>
 </div>
 </div>
 <script>
        let target = Math.floor(Math.random() * 100) + 1;
-       let tries = 0;
        function check() {
-           let val = document.getElementById("guess").value;
-           if(!val) return;
-           tries++;
-           document.getElementById("tries").innerText = tries;
+           let val = document.getElementById('guess').value;
+           let msg = document.getElementById('msg');
            if(val == target) {
-               document.getElementById("msg").innerText = "Correct! You're smarter than you look.";
-           } else if(val < target) {
-               document.getElementById("msg").innerText = "Higher ↑ (Try a bigger number)";
+               msg.innerHTML = '<span class="success">Perfect! You’ve got the intuition. Now, tell me your plan below.</span>';
            } else {
-               document.getElementById("msg").innerText = "Lower ↓ (Try a smaller number)";
+               msg.innerText = val < target ? "Higher ↑" : "Lower ↓";
            }
        }
 </script>
