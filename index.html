@@ -3,28 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sput.ai - Premium Domain For Sale</title>
+<title>sput.ai - Play & Acquire</title>
 <style>
-       body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #f8f9fa; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; color: #333; }
-       .container { background: white; padding: 60px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-align: center; max-width: 500px; width: 90%; }
-       h1 { font-size: 2.5rem; margin-bottom: 20px; color: #1a1a1a; }
-       p { color: #666; margin-bottom: 30px; line-height: 1.6; }
-       input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-       button { background: #007bff; color: white; border: none; padding: 12px 30px; border-radius: 6px; cursor: pointer; font-size: 1rem; width: 100%; }
-       button:hover { background: #0056b3; }
-       .footer { margin-top: 30px; font-size: 0.8rem; color: #999; }
+       body { font-family: 'Courier New', Courier, monospace; background: #1a1a1a; color: #00ff00; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
+       .container { text-align: center; border: 2px solid #00ff00; padding: 20px; border-radius: 10px; background: #000; box-shadow: 0 0 20px #00ff00; max-width: 450px; width: 100%; }
+       canvas { border: 2px solid #555; background-color: #000; display: block; margin: 20px auto; }
+       h1 { margin: 10px 0; letter-spacing: 5px; }
+       .score { font-size: 20px; margin-bottom: 10px; }
+       .form-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid #333; }
+       input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #555; background: #222; color: #fff; box-sizing: border-box; }
+       button { background: #00ff00; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; width: 100%; }
 </style>
 </head>
 <body>
 <div class="container">
-<h1>Sput.ai</h1>
-<p>This premium domain is available for acquisition. Please use the form below to submit your offer or inquiry.</p>
+<h1>SPUT.AI</h1>
+<p>Premium AI Domain for Sale</p>
+<div class="score">Score: <span id="currentScore">0</span></div>
+<canvas id="snakeGame" width="300" height="300"></canvas>
+<div class="form-section">
+<p>Submit your offer:</p>
 <form action="https://formspree.io/f/mqeyeddn" method="POST">
-<input type="email" name="email" placeholder="Your Email Address" required>
-<textarea name="message" rows="4" placeholder="Your Offer or Message" required></textarea>
+<input type="email" name="email" placeholder="Your Email" required>
+<textarea name="message" placeholder="Your Offer" required></textarea>
 <button type="submit">Send Offer</button>
 </form>
-<div class="footer">Sput.ai </div>
 </div>
+</div>
+<script>
+       // Oyun mantığı
+       const canvas = document.getElementById("snakeGame");
+       const ctx = canvas.getContext("2d");
+       const scoreElement = document.getElementById("currentScore");
+       let score = 0, box = 15, snake = [{x: 9 * box, y: 10 * box}], d;
+       let food = { x: Math.floor(Math.random() * 19 + 1) * box, y: Math.floor(Math.random() * 19 + 1) * box };
+       document.addEventListener("keydown", (e) => {
+           if(e.keyCode == 37 && d != "RIGHT") d = "LEFT";
+           else if(e.keyCode == 38 && d != "DOWN") d = "UP";
+           else if(e.keyCode == 39 && d != "LEFT") d = "RIGHT";
+           else if(e.keyCode == 40 && d != "UP") d = "DOWN";
+       });
+       function draw() {
+           ctx.fillStyle = "black";
+           ctx.fillRect(0, 0, canvas.width, canvas.height);
+           for(let i = 0; i < snake.length; i++) {
+               ctx.fillStyle = (i == 0) ? "#00ff00" : "#008800";
+               ctx.fillRect(snake[i].x, snake[i].y, box, box);
+           }
+           ctx.fillStyle = "red";
+           ctx.fillRect(food.x, food.y, box, box);
+           let snakeX = snake[0].x, snakeY = snake[0].y;
+           if(d == "LEFT") snakeX -= box; if(d == "UP") snakeY -= box;
+           if(d == "RIGHT") snakeX += box; if(d == "DOWN") snakeY += box;
+           if(snakeX == food.x && snakeY == food.y) {
+               score++; scoreElement.innerHTML = score;
+               food = { x: Math.floor(Math.random() * 19 + 1) * box, y: Math.floor(Math.random() * 19 + 1) * box };
+           } else { snake.pop(); }
+           let newHead = { x: snakeX, y: snakeY };
+           if(snakeX < 0 || snakeY < 0 || snakeX >= canvas.width || snakeY >= canvas.height) { clearInterval(game); alert("Game Over! Score: " + score); location.reload(); }
+           snake.unshift(newHead);
+       }
+       let game = setInterval(draw, 100);
+</script>
 </body>
 </html>
