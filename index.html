@@ -3,78 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>sput.ai - AI Number Challenge</title>
+<title>sput.ai</title>
 <style>
-
-        body { background: #000; color: #0f0; font-family: 'Courier New', monospace; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
-
-        .container { text-align: center; border: 2px solid #0f0; padding: 25px; border-radius: 15px; width: 100%; max-width: 350px; box-shadow: 0 0 20px #004400; }
-
-        h1 { margin-top: 0; letter-spacing: 2px; }
-
-        input { background: #111; color: #fff; border: 1px solid #0f0; padding: 12px; width: 80px; text-align: center; font-size: 1.2rem; margin: 10px 0; }
-
-        button { background: #0f0; color: #000; border: none; padding: 12px 25px; cursor: pointer; font-weight: bold; font-size: 1rem; }
-
-        .info { margin: 15px 0; color: #aaa; }
-
-        .form-section { margin-top: 30px; border-top: 1px solid #333; padding-top: 20px; text-align: left; }
-
-        .form-section input, .form-section textarea { width: 100%; padding: 8px; margin-bottom: 10px; background: #111; border: 1px solid #333; color: #fff; box-sizing: border-box; }
+       html, body {
+           margin: 0; padding: 0; height: 100%; width: 100%;
+           background: #000; color: #0f0; font-family: 'Courier New', monospace;
+           display: flex; justify-content: center; align-items: center; overflow: hidden;
+       }
+       .container {
+           text-align: center; border: 2px solid #0f0; padding: 20px;
+           border-radius: 12px; width: 90%; max-width: 350px;
+           box-shadow: 0 0 15px #004400;
+       }
+       h1 { margin: 5px 0; font-size: 1.5rem; color: #fff; }
+       #msg { min-height: 40px; margin: 10px 0; font-size: 1rem; }
+       input { background: #111; color: #fff; border: 1px solid #0f0; padding: 10px; width: 70px; text-align: center; font-size: 1.1rem; }
+       button { background: #0f0; color: #000; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; }
+       .form-section { margin-top: 20px; border-top: 1px dashed #333; padding-top: 15px; }
+       .form-section input, .form-section textarea { width: 100%; padding: 8px; margin-bottom: 8px; background: #111; border: 1px solid #333; color: #fff; box-sizing: border-box; }
 </style>
 </head>
 <body>
 <div class="container">
-<h1>AI CHALLENGE</h1>
-<p id="msg">1-100 arası bir sayı tuttum. Tahmin et!</p>
+<h1>SPUT.AI</h1>
+<p id="msg">I've picked a number (1-100). Guess it.</p>
 <input type="number" id="guess" placeholder="?">
-<br>
-<button onclick="check()">TAHMİN ET</button>
-<p>Deneme Sayısı: <span id="tries">0</span></p>
+<button onclick="check()">GUESS!</button>
+<p>Attempts: <span id="tries">0</span></p>
 <div class="form-section">
-<p style="text-align:center;">Domain için teklif gönder:</p>
+<p>Ready to own this? Convince me.</p>
 <form action="https://formspree.io/f/mqeyeddn" method="POST">
-<input type="email" name="email" placeholder="E-posta" required>
-<textarea name="message" placeholder="Teklifin..." required></textarea>
-<button type="submit" style="width:100%;">GÖNDER</button>
+<input type="email" name="email" placeholder="Your Email" required>
+<textarea name="message" placeholder="Why should this be yours?" rows="2" required></textarea>
+<button type="submit" style="width:100%;">SUBMIT OFFER</button>
 </form>
 </div>
 </div>
 <script>
-
-        let target = Math.floor(Math.random() * 100) + 1;
-
-        let tries = 0;
-
-        function check() {
-
-            let val = document.getElementById("guess").value;
-
-            if(!val) return;
-
-            tries++;
-
-            document.getElementById("tries").innerText = tries;
-
-            if(val == target) { 
-
-                document.getElementById("msg").innerText = "Tebrikler! AI'yi " + tries + " denemede yendin!";
-
-                alert("AI'yi " + tries + " denemede yendin! Tekrar oynamak için sayfayı yenile.");
-
-            } else if(val < target) {
-
-                document.getElementById("msg").innerText = "Daha YÜKSEK bir sayı gir.";
-
-            } else {
-
-                document.getElementById("msg").innerText = "Daha DÜŞÜK bir sayı gir.";
-
-            }
-
-        }
+       let target = Math.floor(Math.random() * 100) + 1;
+       let tries = 0;
+       function check() {
+           let val = document.getElementById("guess").value;
+           if(!val) return;
+           tries++;
+           document.getElementById("tries").innerText = tries;
+           if(val == target) {
+               document.getElementById("msg").innerText = "Correct! You're smarter than you look. Let's talk.";
+           } else if(val < target) {
+               document.getElementById("msg").innerText = "Higher ↑ (Try a bigger number)";
+           } else {
+               document.getElementById("msg").innerText = "Lower ↓ (Try a smaller number)";
+           }
+       }
 </script>
 </body>
 </html>
-Sput.ai - Premium Domain For Sale
- 
